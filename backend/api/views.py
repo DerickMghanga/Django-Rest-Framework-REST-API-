@@ -1,7 +1,6 @@
 #import json
 #from django.http import JsonResponse, HttpResponse
 from django.forms.models import model_to_dict  #converts models to dict
-
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -16,7 +15,7 @@ def api_home(request, *args, **kwargs):
     data = {}
 
     if model_data:  #if the model exists.(sometimes it may not exist)
-        data = model_to_dict(model_data, fields=["id", "title", "price"])
+        data = model_to_dict(model_data, fields=["id", "title", "price", "sale_price"])
     return Response(data)
 
 
