@@ -7,18 +7,25 @@ from rest_framework.response import Response
 from products.models import Product
 from products.serializers import ProductSerializer
 
-@api_view(["GET"])
+@api_view(["POST"])
 def api_home(request, *args, **kwargs):
     """
     Django Rest Framework API VIEW
     """
-    instance = Product.objects.all().order_by("?").first()  #gets a random query and selects the first item
-    data = {}
-
-    if instance:  #if the model exists.(sometimes it may not exist)
-        #data = model_to_dict(instance, fields=["id", "title", "price", "sale_price"])
-        data = ProductSerializer(instance).data
+    serializer = ProductSerializer(data=request.data)
+    if serializer.is_valid():
+        print(serializer.data)
+        data = serializer.data
     return Response(data)
+    
+    #GET REQUEST CODE
+    # instance = Product.objects.all().order_by("?").first()  #gets a random query and selects the first item
+    # data = {}
+
+    # if instance:  #if the model exists.(sometimes it may not exist)
+    #     #data = model_to_dict(instance, fields=["id", "title", "price", "sale_price"])
+    #     data = ProductSerializer(instance).data
+   
 
 
 
