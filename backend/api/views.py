@@ -19,6 +19,9 @@ def api_home(request, *args, **kwargs):
         return Response(serializer.data)
     return Response({"invalid":"Not good data"}, status=400)
     
+
+
+    
     #'GET' REQUEST CODE
     # instance = Product.objects.all().order_by("?").first()  #gets a random query and selects the first item
     # data = {}
