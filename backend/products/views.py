@@ -8,6 +8,8 @@ from django.shortcuts import get_object_or_404
 from .models import Product
 from .serializers import ProductSerializer
 
+
+#Create and list view
 class ProductListCreateAPIView(generics.ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
@@ -22,12 +24,35 @@ class ProductListCreateAPIView(generics.ListCreateAPIView):
         serializer.save(content=content)
 product_list_create_view = ProductListCreateAPIView.as_view()
 
-
+#Get specific details
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
     # lookup_field = 'pk' (primary key)
 product_detail_view = ProductDetailAPIView.as_view()
+
+#Update specific details
+class ProductUpdateAPIView(generics.UpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk' #(primary key)
+
+    def perform_update(self, serializer):
+        instance = serializer.save()
+        if not instance.content:
+            instance.content = instance.title
+product_update_view = ProductUpdateAPIView.as_view()
+
+#Delete specific details
+class ProductDestroyAPIView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    lookup_field = 'pk' #(primary key)
+
+    def perform_destroy(self, instance):
+        #instance
+        super().perform_destroy(instance)
+product_destroy_view = ProductDestroyAPIView.as_view()
 
 
 # class ProductListAPIView(generics.ListCreateAPIView):
