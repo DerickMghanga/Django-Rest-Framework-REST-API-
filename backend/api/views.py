@@ -13,7 +13,7 @@ def api_home(request, *args, **kwargs):
     Django Rest Framework API VIEW
     """
     serializer = ProductSerializer(data=request.data)
-    if serializer.is_valid(raise_exception=True):   #checks if the data is aligned with the serializer(models)
+    if serializer.is_valid(raise_exception=True): #checks if the data is aligned with the serializer(models)
         #instance = serializer.save() #similar to forms.save()
         print(serializer.data)
         return Response(serializer.data)
