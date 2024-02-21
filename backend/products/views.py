@@ -30,14 +30,14 @@ class ProductDetailAPIView(generics.RetrieveAPIView):
 product_detail_view = ProductDetailAPIView.as_view()
 
 
-class ProductListAPIView(generics.ListCreateAPIView):
-    '''
-    Not gonna use this method
-    '''
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-    # lookup_field = 'pk' (primary key)
-product_list_view = ProductListAPIView.as_view()
+# class ProductListAPIView(generics.ListCreateAPIView):
+#     '''
+#     Not gonna use this method
+#     '''
+#     queryset = Product.objects.all()
+#     serializer_class = ProductSerializer
+#     # lookup_field = 'pk' (primary key)
+# product_list_view = ProductListAPIView.as_view()
 
 
 #Function Based Views for Create and List for Products
