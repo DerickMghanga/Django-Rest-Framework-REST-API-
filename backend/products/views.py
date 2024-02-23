@@ -65,20 +65,30 @@ product_destroy_view = ProductDestroyAPIView.as_view()
 # product_list_view = ProductListAPIView.as_view()
 
 
-#Class based Views using Mixins
+#Class based Views using Mixins("CREATE", "LIST" and "GET")
 class ProductMixinView(
+    mixins.CreateModelMixin,
     mixins.ListModelMixin,
+    mixins.RetrieveModelMixin,
     generics.GenericAPIView
     ):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+    lookup_field = 'pk'  # used by the RetrieveModelMixin
     
-    def get(self, request, *args, **kwargs):  #HTTP --> GET
-         return self.list(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):  #HTTP --> GET (all and specific details)
+        #print (args, kwargs)
+        pk = kwargs.get("pk")
+        if pk is not None:
+            return self.retrieve(request, *args, **kwargs)
+        return self.list(request, *args, **kwargs)
     
-    # def post(): #HTTP --> POST
-    #     return
+    def post(self, request, *args, **kwargs): #HTTP --> POST
+        return self.create(request, *args, **kwargs)
+    
+    #def put
+    #def delete
 product_mixin_view = ProductMixinView.as_view()
 
 
