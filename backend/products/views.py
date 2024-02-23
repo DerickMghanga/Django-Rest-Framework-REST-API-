@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, mixins
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
@@ -63,6 +63,24 @@ product_destroy_view = ProductDestroyAPIView.as_view()
 #     serializer_class = ProductSerializer
 #     # lookup_field = 'pk' (primary key)
 # product_list_view = ProductListAPIView.as_view()
+
+
+#Class based Views using Mixins
+class ProductMixinView(
+    mixins.ListModelMixin,
+    generics.GenericAPIView
+    ):
+
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+    
+    def get(self, request, *args, **kwargs):  #HTTP --> GET
+         return self.list(request, *args, **kwargs)
+    
+    # def post(): #HTTP --> POST
+    #     return
+product_mixin_view = ProductMixinView.as_view()
+
 
 
 #Function Based Views for Create and List for Products
