@@ -4,7 +4,8 @@ from products.viewsets import ProductViewSet
 
 router = DefaultRouter()
 
-router.register('products-abc', ProductViewSet, basename='products')
+#VERSION 2 OF API (/api/v2/products)
+router.register('products', ProductViewSet, basename='products')  # list, create, update and delete products
 
 print(router.urls)
 
